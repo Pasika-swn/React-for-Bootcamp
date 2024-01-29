@@ -29,8 +29,10 @@ function App() {
         setLoading(false);
       }
     }
-    fetchData();
-  }, []);
+    if (!countries.length) {
+      fetchData();
+    }
+  }, [countries]);
   useEffect(() => {
     function handleOffline() {
       setOffline(true);
