@@ -1,4 +1,9 @@
 import React, { useState, useEffect } from "react";
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
+import { Typography } from "@mui/material";
 
 function App() {
   const [countries, setCountries] = useState([]);
@@ -40,7 +45,17 @@ function App() {
         margin: "auto",
       }}
     >
-      <h1>Country Finder</h1>
+      <Typography
+        variant="h1"
+        sx={{
+          fontSize: "3rem",
+          fontWeight: 500,
+          marginTop: "0.5rem",
+          marginBottom: "1rem",
+        }}
+      >
+        Country Finder
+      </Typography>
       {offline && (
         <div
           style={{
