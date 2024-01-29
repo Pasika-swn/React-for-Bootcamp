@@ -10,6 +10,9 @@ import {
   InputLabel,
   TextField,
   Typography,
+  List,
+  ListItem,
+  Skeleton,
 } from "@mui/material";
 
 function App() {
@@ -77,45 +80,53 @@ function App() {
           ⚠️ You are offline. Please check your internet connection.
         </div>
       )}
+      <div style={{ display: "flex", gap: "0.5rem" }}>
+        <TextField
+          label="Search country"
+          placeholder="Type to find..."
+          value={text}
+          onChange={(event) => {
+            setText(event.target.value);
+          }}
+          style={{
+            flex: "auto",
+          }}
+        />
+        <FormControl
+          sx={{
+            minWidth: 82,
+          }}
+        >
+          <InputLabel id="language-select">Language</InputLabel>
+          <Select
+            label="Language"
+            labelId="language-select"
+            value={language}
+            onChange={(event) => {
+              setLanguage(event.target.value);
+            }}
+          >
+            <MenuItem value="eng">eng</MenuItem>
+            <MenuItem value="ara">ara</MenuItem>
+            <MenuItem value="fra">fra</MenuItem>
+            <MenuItem value="ita">ita</MenuItem>
+            <MenuItem value="jpn">jpn</MenuItem>
+            <MenuItem value="zho">zho</MenuItem>
+          </Select>
+        </FormControl>
+      </div>
       {loading ? (
-        "loading..."
+        <List sx={{ mt: "1rem" }}>
+          {[...Array(30)].map((_, index) => (
+            <ListItem key={index}>
+              <Skeleton
+                sx={{ width: `${Math.floor(Math.random() * 61) + 40}%` }}
+              />
+            </ListItem>
+          ))}
+        </List>
       ) : (
         <>
-          <div style={{ display: "flex", gap: "0.5rem" }}>
-            <TextField
-              label="Search country"
-              placeholder="Type to find..."
-              value={text}
-              onChange={(event) => {
-                setText(event.target.value);
-              }}
-              style={{
-                flex: "auto",
-              }}
-            />
-            <FormControl
-              sx={{
-                minWidth: 82,
-              }}
-            >
-              <InputLabel id="language-select">Language</InputLabel>
-              <Select
-                label="Language"
-                labelId="language-select"
-                value={language}
-                onChange={(event) => {
-                  setLanguage(event.target.value);
-                }}
-              >
-                <MenuItem value="eng">eng</MenuItem>
-                <MenuItem value="ara">ara</MenuItem>
-                <MenuItem value="fra">fra</MenuItem>
-                <MenuItem value="ita">ita</MenuItem>
-                <MenuItem value="jpn">jpn</MenuItem>
-                <MenuItem value="zho">zho</MenuItem>
-              </Select>
-            </FormControl>
-          </div>
           <ul style={{ margin: 0, padding: 0, marginTop: "1rem" }}>
             {countries
               .filter((country) =>
