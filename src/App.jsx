@@ -13,6 +13,7 @@ import {
   List,
   ListItem,
   Skeleton,
+  ListItemAvatar,
 } from "@mui/material";
 
 function App() {
@@ -127,7 +128,7 @@ function App() {
         </List>
       ) : (
         <>
-          <ul style={{ margin: 0, padding: 0, marginTop: "1rem" }}>
+          <List sx={{ marginTop: "1rem" }}>
             {countries
               .filter((country) =>
                 (
@@ -141,38 +142,39 @@ function App() {
                   country.name.official;
                 const elements = text ? name.split(text) : [name];
                 return (
-                  <li
+                  <ListItem
                     key={country.name.official}
-                    style={{
-                      display: "flex",
-                      flexWrap: "wrap",
-                      borderBottom: "1px solid #e5e5e5",
-                      padding: "0.5rem 0",
+                    sx={{
                       whiteSpace: "pre",
+                      borderBottom: "1px solid #e5e5e5",
                     }}
                   >
-                    {country.flag}{" "}
-                    {elements.map((elm, index) =>
-                      index === 0 ? (
-                        elm
-                      ) : (
-                        <React.Fragment key={index}>
-                          <span
-                            style={{
-                              backgroundColor: "lightblue",
-                              color: "darkblue",
-                            }}
-                          >
-                            {text}
-                          </span>
-                          {elm}
-                        </React.Fragment>
-                      )
-                    )}
-                  </li>
+                    <ListItemAvatar sx={{ minWidth: 40 }}>
+                      {country.flag}
+                    </ListItemAvatar>
+                    <Typography noWrap>
+                      {elements.map((elm, index) =>
+                        index === 0 ? (
+                          elm
+                        ) : (
+                          <React.Fragment key={index}>
+                            <span
+                              style={{
+                                backgroundColor: "lightblue",
+                                color: "darkblue",
+                              }}
+                            >
+                              {text}
+                            </span>
+                            {elm}
+                          </React.Fragment>
+                        )
+                      )}
+                    </Typography>
+                  </ListItem>
                 );
               })}
-          </ul>
+          </List>
         </>
       )}
     </main>
