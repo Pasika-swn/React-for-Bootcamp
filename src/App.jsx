@@ -3,7 +3,14 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
-import { TextField, Typography } from "@mui/material";
+import {
+  MenuItem,
+  Select,
+  FormControl,
+  InputLabel,
+  TextField,
+  Typography,
+} from "@mui/material";
 
 function App() {
   const [countries, setCountries] = useState([]);
@@ -84,25 +91,28 @@ function App() {
                 flex: "auto",
               }}
             />
-            <select
-              value={language}
-              onChange={(event) => {
-                setLanguage(event.target.value);
-              }}
-              style={{
-                border: "1px solid",
-                backgroundColor: "#fff",
-                fontSize: "1rem",
-                minWidth: "min-content",
+            <FormControl
+              sx={{
+                minWidth: 82,
               }}
             >
-              <option value="eng">eng</option>
-              <option value="ara">ara</option>
-              <option value="fra">fra</option>
-              <option value="ita">ita</option>
-              <option value="jpn">jpn</option>
-              <option value="zho">zho</option>
-            </select>
+              <InputLabel id="language-select">Language</InputLabel>
+              <Select
+                label="Language"
+                labelId="language-select"
+                value={language}
+                onChange={(event) => {
+                  setLanguage(event.target.value);
+                }}
+              >
+                <MenuItem value="eng">eng</MenuItem>
+                <MenuItem value="ara">ara</MenuItem>
+                <MenuItem value="fra">fra</MenuItem>
+                <MenuItem value="ita">ita</MenuItem>
+                <MenuItem value="jpn">jpn</MenuItem>
+                <MenuItem value="zho">zho</MenuItem>
+              </Select>
+            </FormControl>
           </div>
           <ul style={{ margin: 0, padding: 0, marginTop: "1rem" }}>
             {countries
