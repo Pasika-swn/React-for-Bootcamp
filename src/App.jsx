@@ -3,7 +3,7 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
-import { Typography } from "@mui/material";
+import { TextField, Typography } from "@mui/material";
 
 function App() {
   const [countries, setCountries] = useState([]);
@@ -73,18 +73,14 @@ function App() {
       ) : (
         <>
           <div style={{ display: "flex", gap: "0.5rem" }}>
-            <input
+            <TextField
+              label="Search country"
               placeholder="Type to find..."
               value={text}
               onChange={(event) => {
                 setText(event.target.value);
               }}
               style={{
-                border: "none",
-                background: "#f5f5f5",
-                padding: "0.75rem 1rem",
-                width: "100%",
-                fontSize: "1rem",
                 flex: "auto",
               }}
             />
