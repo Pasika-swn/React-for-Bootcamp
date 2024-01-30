@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
@@ -14,7 +15,64 @@ import {
   ListItem,
   Skeleton,
   ListItemAvatar,
+  Card,
+  CardContent,
+  CardActions,
+  CardMedia,
+  Button,
 } from "@mui/material";
+
+function CountryItem({ data, children }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <ListItem
+      sx={{
+        whiteSpace: "pre",
+        borderBottom: "1px solid #e5e5e5",
+      }}
+      onMouseEnter={() => {
+        setHovered(true);
+      }}
+      onMouseLeave={() => {
+        setHovered(false);
+      }}
+    >
+      {children}
+      {hovered && (
+        <Card
+          elevation={4}
+          sx={{ position: "absolute", top: 0, left: "100%", width: 200 }}
+        >
+          <CardMedia
+            component="img"
+            height="100"
+            image={data.flags.png}
+            alt={data.flags.alt}
+          />
+          <CardContent>
+            <Typography
+              sx={{ fontSize: 14 }}
+              color="text.secondary"
+              gutterBottom
+            >
+              {data.region}
+            </Typography>
+            <Typography
+              variant="h5"
+              component="div"
+              sx={{ whiteSpace: "wrap" }}
+            >
+              {data.name.common}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button size="small">Learn More</Button>
+          </CardActions>
+        </Card>
+      )}
+    </ListItem>
+  );
+}
 
 function App() {
   const [countries, setCountries] = useState([]);
@@ -142,13 +200,7 @@ function App() {
                   country.name.official;
                 const elements = text ? name.split(text) : [name];
                 return (
-                  <ListItem
-                    key={country.name.official}
-                    sx={{
-                      whiteSpace: "pre",
-                      borderBottom: "1px solid #e5e5e5",
-                    }}
-                  >
+                  <CountryItem key={country.name.official} data={country}>
                     <ListItemAvatar sx={{ minWidth: 40 }}>
                       {country.flag}
                     </ListItemAvatar>
@@ -171,7 +223,7 @@ function App() {
                         )
                       )}
                     </Typography>
-                  </ListItem>
+                  </CountryItem>
                 );
               })}
           </List>
