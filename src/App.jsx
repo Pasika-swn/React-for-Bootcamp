@@ -20,6 +20,7 @@ import {
   CardActions,
   CardMedia,
   Button,
+  Fade,
 } from "@mui/material";
 
 function CountryItem({ data, children }) {
@@ -54,43 +55,45 @@ function CountryItem({ data, children }) {
     >
       {children}
       {hovered && (
-        <Card
-          ref={cardRef}
-          elevation={4}
-          sx={{
-            position: "absolute",
-            top: 0,
-            left: "100%",
-            width: 200,
-            transform: `translateY(${offset}px)`,
-          }}
-        >
-          <CardMedia
-            component="img"
-            height="100"
-            image={data.flags.png}
-            alt={data.flags.alt}
-          />
-          <CardContent>
-            <Typography
-              sx={{ fontSize: 14 }}
-              color="text.secondary"
-              gutterBottom
-            >
-              {data.region}
-            </Typography>
-            <Typography
-              variant="h5"
-              component="div"
-              sx={{ whiteSpace: "wrap" }}
-            >
-              {data.name.common}
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button size="small">Learn More</Button>
-          </CardActions>
-        </Card>
+        <Fade in timeout={400}>
+          <Card
+            ref={cardRef}
+            elevation={4}
+            sx={{
+              position: "absolute",
+              top: 0,
+              left: "100%",
+              width: 200,
+              transform: `translateY(${offset}px)`,
+            }}
+          >
+            <CardMedia
+              component="img"
+              height="100"
+              image={data.flags.png}
+              alt={data.flags.alt}
+            />
+            <CardContent>
+              <Typography
+                sx={{ fontSize: 14 }}
+                color="text.secondary"
+                gutterBottom
+              >
+                {data.region}
+              </Typography>
+              <Typography
+                variant="h5"
+                component="div"
+                sx={{ whiteSpace: "wrap" }}
+              >
+                {data.name.common}
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Button size="small">Learn More</Button>
+            </CardActions>
+          </Card>
+        </Fade>
       )}
     </ListItem>
   );
