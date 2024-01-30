@@ -21,9 +21,10 @@ import {
   CardMedia,
   Button,
   Fade,
+  Divider,
 } from "@mui/material";
 
-function CountryItem({ data, children }) {
+function CountryItem({ data, children, onLearnMore }) {
   const [hovered, setHovered] = useState(false);
   const [offset, setOffset] = useState(0);
   const cardRef = useRef(null);
@@ -90,7 +91,9 @@ function CountryItem({ data, children }) {
               </Typography>
             </CardContent>
             <CardActions>
-              <Button size="small">Learn More</Button>
+              <Button size="small" onClick={() => onLearnMore(data)}>
+                Learn More
+              </Button>
             </CardActions>
           </Card>
         </Fade>
@@ -105,6 +108,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [language, setLanguage] = useState("eng");
   const [offline, setOffline] = useState(false);
+  const [countryDetail, setCountryDetail] = useState(null);
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
@@ -134,6 +138,70 @@ function App() {
       window.removeEventListener("online", handleOnline);
     };
   }, []);
+  if (countryDetail) {
+    return (
+      <main
+        style={{
+          maxWidth: 400,
+          margin: "auto",
+        }}
+      >
+        <Button
+          sx={{ marginTop: "1rem" }}
+          onClick={() => setCountryDetail(null)}
+        >
+          All countries
+        </Button>
+        <Divider sx={{ marginBlock: "1rem" }} />
+        <Typography
+          variant="h1"
+          sx={{
+            fontSize: "3rem",
+            fontWeight: 500,
+            marginTop: "0.5rem",
+          }}
+        >
+          {countryDetail.name.common}
+        </Typography>
+        <Typography variant="overline" sx={{ marginBottom: "1rem" }}>
+          {countryDetail.region}
+        </Typography>
+
+        <img
+          src={countryDetail.flags.svg}
+          alt={countryDetail.flags.alt}
+          width="100%"
+          style={{ aspectRatio: 2 }}
+        />
+        <Typography variant="h3" sx={{ fontSize: "1.5rem", marginTop: "1rem" }}>
+          Capital
+        </Typography>
+        <ul>
+          {countryDetail.capital
+            ? countryDetail.capital?.map((item) => <li key={item}>{item}</li>)
+            : "-"}
+        </ul>
+
+        <Typography variant="h3" sx={{ fontSize: "1.5rem", marginTop: "1rem" }}>
+          Timezones
+        </Typography>
+        <ul>
+          {countryDetail.timezones
+            ? countryDetail.timezones?.map((item) => <li key={item}>{item}</li>)
+            : "-"}
+        </ul>
+
+        <Typography variant="h3" sx={{ fontSize: "1.5rem", marginTop: "1rem" }}>
+          Borders
+        </Typography>
+        <ul>
+          {countryDetail.borders
+            ? countryDetail.borders?.map((item) => <li key={item}>{item}</li>)
+            : "-"}
+        </ul>
+      </main>
+    );
+  }
   return (
     <main
       style={{
@@ -225,7 +293,11 @@ function App() {
                   country.name.official;
                 const elements = text ? name.split(text) : [name];
                 return (
-                  <CountryItem key={country.name.official} data={country}>
+                  <CountryItem
+                    key={country.name.official}
+                    data={country}
+                    onLearnMore={() => setCountryDetail(country)}
+                  >
                     <ListItemAvatar sx={{ minWidth: 40 }}>
                       {country.flag}
                     </ListItemAvatar>
