@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
@@ -24,6 +24,21 @@ import {
 
 function CountryItem({ data, children }) {
   const [hovered, setHovered] = useState(false);
+  const [offset, setOffset] = useState(0);
+  const cardRef = useRef(null);
+  useEffect(() => {
+    if (hovered && cardRef.current) {
+      const result =
+        window.innerHeight -
+        cardRef.current.getBoundingClientRect().bottom -
+        12;
+      if (result < 0) {
+        setOffset(result);
+      }
+    } else {
+      setOffset(0);
+    }
+  }, [hovered]);
   return (
     <ListItem
       sx={{
@@ -40,8 +55,15 @@ function CountryItem({ data, children }) {
       {children}
       {hovered && (
         <Card
+          ref={cardRef}
           elevation={4}
-          sx={{ position: "absolute", top: 0, left: "100%", width: 200 }}
+          sx={{
+            position: "absolute",
+            top: 0,
+            left: "100%",
+            width: 200,
+            transform: `translateY(${offset}px)`,
+          }}
         >
           <CardMedia
             component="img"
