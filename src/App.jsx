@@ -6,34 +6,37 @@ function randomSixDigits() {
 
 function IntervalNumber() {
   const [number, setNumber] = useState(randomSixDigits());
-  // 1. create a state named `turn` to store the current turn with initial value 0.
+  const [turn, setTurn] = useState(0); // 0 - 1 in 30s
+  const duration = 10; // 30s
 
   useEffect(() => {
     const timeout = setTimeout(() => {
       setNumber(randomSixDigits());
-    }, [30000]);
+      setTurn(0);
+    }, [duration * 1000]);
     return () => clearTimeout(timeout);
-  }, [number]);
+  }, [number, duration]);
 
-  // 2. create a useEffect to update the `turn` state every second.
-  //    💡 HINT: turn value is between 0-1, meaning the initial value is 0 and after 30 seconds it will be 1.
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setTurn((prev) => prev + 1 / duration);
+    }, [1000]);
+    return () => clearTimeout(timeout);
+  }, [turn, duration]);
 
   return (
-    <div className="text-2xl text-violet-700 font-medium">
+    <div className="text-2xl text-violet-700 font-medium flex items-center">
       {number.map((num, i) => (
         <span key={i} className={`${i === 3 ? "ml-4" : ""}`}>
           {num}
         </span>
       ))}
-      {/* 3. create a <span> tag to represent the time-left indicator using CSS conic-gradient
-             💡 HINT: try this in your browser console to see how it works: 
-             <span
-              className="ml-auto block w-9 h-9 rounded-full"
-              style={{
-                background: `conic-gradient(transparent 0deg, transparent 0.5turn, violet 0.5turn)`,
-              }}
-            />
-      */}
+      <span
+        className="ml-auto block w-9 h-9 rounded-full"
+        style={{
+          background: `conic-gradient(transparent 0deg, transparent ${turn}turn, violet ${turn}turn)`,
+        }}
+      />
     </div>
   );
 }
