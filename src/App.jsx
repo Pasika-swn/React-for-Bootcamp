@@ -5,7 +5,7 @@ function App() {
   const [creating, setCreating] = useState(false);
   const [name, setName] = useState("");
   const [code, setCode] = useState("");
-  // 1. create a state named `existed` to store the existed state with `false` as initial value.
+  const [existed, setExisted] = useState(false);
   return (
     <div className="max-w-[400px] m-auto my-2">
       <div className="flex items-center">
@@ -24,6 +24,24 @@ function App() {
       </div>
       {creating && (
         <div className="flex flex-col gap-4">
+          {existed && (
+            <div role="alert" className="alert alert-warning mt-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                className="stroke-current shrink-0 w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+              <span>Account existed! Please try another code.</span>
+            </div>
+          )}
           <label className="form-control w-full" htmlFor="account-name">
             <div className="label">Name</div>
             <input
@@ -50,8 +68,13 @@ function App() {
           <button
             className="btn btn-secondary mt-4"
             onClick={() => {
+              if (accounts.find((item) => item.code === code)) {
+                setExisted(true);
+                return;
+              }
               setAccounts((prev) => [...prev, { name, code }]);
               setCreating(false);
+              setExisted(false);
               setName("");
               setCode("");
             }}
