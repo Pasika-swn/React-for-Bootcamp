@@ -7,8 +7,8 @@ function randomSixDigits() {
 function IntervalNumber() {
   const [number, setNumber] = useState(randomSixDigits());
   const [turn, setTurn] = useState(0); // 0 - 1 in 30s
-  const duration = 10; // 30s
-  // 1. create a `timeLeft` variable with a value of `(1 - turn) * duration`
+  const duration = 30; // 30s
+  const timeLeft = (1 - turn) * duration;
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -26,9 +26,12 @@ function IntervalNumber() {
   }, [turn, duration]);
 
   return (
-    // 2. change the color when `timeLeft` < 5
-    // 3. add animation `blink` when `timeLeft` < 5
-    <div className="text-2xl text-violet-700 font-medium flex items-center">
+    <div
+      className={`text-2xl ${
+        timeLeft < 5 ? "text-red-600" : "text-violet-700"
+      } font-medium flex items-center`}
+      style={{ animation: timeLeft < 5 ? "blink 1s infinite" : "none" }}
+    >
       {number.map((num, i) => (
         <span key={i} className={`${i === 3 ? "ml-4" : ""}`}>
           {num}
@@ -37,7 +40,9 @@ function IntervalNumber() {
       <span
         className="ml-auto block w-9 h-9 rounded-full"
         style={{
-          background: `conic-gradient(transparent 0deg, transparent ${turn}turn, violet ${turn}turn)`,
+          background: `conic-gradient(transparent 0deg, transparent ${turn}turn, ${
+            timeLeft < 5 ? "red" : "violet"
+          } ${turn}turn)`,
         }}
       />
     </div>
