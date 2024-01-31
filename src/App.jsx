@@ -1,15 +1,22 @@
 function App() {
   return (
-    <div
-      className="flex text-red-800"
-      style={{ maxWidth: 400, margin: "auto" }}
-    >
-      Hello
-      {/* 1. render a <h1> with a title */}
-      {/* 2. render a <button> for creating a new account */}
-      {/* 3. render a list of accounts with hardcoded data
-         💡 TIP: you can use `[...Array(10)]` to create array of 10 items
-       */}
+    <div className="max-w-[400px] m-auto my-2">
+      <div className="flex items-center">
+        <h1 className="flex-auto text-3xl font-bold text-fuchsia-950">
+          Authenticator
+        </h1>
+        <button className="flex bg-violet-600 text-white border-none px-4 py-2 font-medium rounded-md cursor-pointer">
+          New
+        </button>
+      </div>
+      <ul className="flex flex-col m-0 p-0 list-none">
+        {[...Array(10)].map((_, i) => (
+          <li key={i} className="border-b py-4">
+            <div className="text-lg">Google</div>
+            <div className="text-xl text-violet-700 font-medium">181 951</div>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
