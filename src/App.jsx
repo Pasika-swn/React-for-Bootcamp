@@ -1,24 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-// 1. create a function to random an array of 6 numbers
 function randomSixDigits() {
-  return [...Array(6)].map(() => 
-    // implement random function here.
-  );
+  return [...Array(6)].map(() => Math.floor(Math.random() * 10));
 }
 
-// 2. create a component "IntervalNumber" to display a number with interval
 function IntervalNumber() {
   const [number, setNumber] = useState(randomSixDigits());
 
   useEffect(() => {
-    // implement the logic to random a new set of number every 30 seconds.
+    const timeout = setTimeout(() => {
+      setNumber(randomSixDigits());
+    }, [30000]);
+    return () => clearTimeout(timeout);
   }, [number]);
 
   return (
-    <div className="text-xl text-violet-700 font-medium">
+    <div className="text-2xl text-violet-700 font-medium">
       {number.map((num, i) => (
-        <span key={i} className={`${i === 3 ? 'ml-4' : ''}`}>
+        <span key={i} className={`${i === 3 ? "ml-4" : ""}`}>
           {num}
         </span>
       ))}
@@ -118,7 +117,7 @@ function App() {
           {accounts.map((item) => (
             <li key={item.code} className="border-b py-4">
               <div className="text-lg">{item.name}</div>
-              <div className="text-xl text-violet-700 font-medium">181 951</div>
+              <IntervalNumber />
             </li>
           ))}
         </ul>
