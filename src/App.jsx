@@ -8,6 +8,7 @@ function IntervalNumber() {
   const [number, setNumber] = useState(randomSixDigits());
   const [turn, setTurn] = useState(0); // 0 - 1 in 30s
   const duration = 10; // 30s
+  // 1. create a `timeLeft` variable with a value of `(1 - turn) * duration`
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -25,6 +26,8 @@ function IntervalNumber() {
   }, [turn, duration]);
 
   return (
+    // 2. change the color when `timeLeft` < 5
+    // 3. add animation `blink` when `timeLeft` < 5
     <div className="text-2xl text-violet-700 font-medium flex items-center">
       {number.map((num, i) => (
         <span key={i} className={`${i === 3 ? "ml-4" : ""}`}>

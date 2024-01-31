@@ -16,3 +16,8 @@
 body {
   margin: 0;
 }
+
+/* add opacity keyframes */
+/* see https://css-tricks.com/snippets/css/keyframe-animation-syntax/#aa-basic-declaration-usage */
+@keyframes blink {
+}
