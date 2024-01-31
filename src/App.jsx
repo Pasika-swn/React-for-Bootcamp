@@ -5,6 +5,7 @@ function App() {
   const [creating, setCreating] = useState(false);
   const [name, setName] = useState("");
   const [code, setCode] = useState("");
+  // 1. create a state named `existed` to store the existed state with `false` as initial value.
   return (
     <div className="max-w-[400px] m-auto my-2">
       <div className="flex items-center">
@@ -59,6 +60,7 @@ function App() {
           </button>
         </div>
       )}
+      {/* 2. render an alert with <div> to let users know that the code is already existed. */}
       {!creating && (
         <ul className="flex flex-col m-0 p-0 list-none">
           {accounts.map((item) => (
