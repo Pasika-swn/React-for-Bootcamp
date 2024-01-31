@@ -2,21 +2,22 @@ import { useState } from "react";
 
 function App() {
   const [accounts, setAccounts] = useState([{ name: "Google", code: "1" }]);
-  // 1. create a state named `creating` to store the creating state with `false` as initial value.
+  const [creating, setCreating] = useState(false);
   return (
     <div className="max-w-[400px] m-auto my-2">
       <div className="flex items-center">
         <h1 className="flex-auto text-3xl font-bold text-fuchsia-950">
           Authenticator
         </h1>
-        <button
-          className="btn"
-          // 2. add `onClick` handler to set `creating` state to `true`
-          //    and click again to set `creating` state to `false`
-        >
-          {/* 3. toggle the text between "New" and "Cancel" */}
-          New
-        </button>
+        {creating ? (
+          <button className="btn" onClick={() => setCreating(false)}>
+            Cancel
+          </button>
+        ) : (
+          <button className="btn" onClick={() => setCreating(true)}>
+            New
+          </button>
+        )}
       </div>
       <ul className="flex flex-col m-0 p-0 list-none">
         {accounts.map((item) => (
