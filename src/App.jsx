@@ -5,9 +5,7 @@ function App() {
         <h1 className="flex-auto text-3xl font-bold text-fuchsia-950">
           Authenticator
         </h1>
-        <button className="flex bg-violet-600 text-white border-none px-4 py-2 font-medium rounded-md cursor-pointer">
-          New
-        </button>
+        <button className="btn">New</button>
       </div>
       <ul className="flex flex-col m-0 p-0 list-none">
         {[...Array(10)].map((_, i) => (
