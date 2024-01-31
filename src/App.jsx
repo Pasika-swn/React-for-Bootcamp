@@ -3,6 +3,7 @@ import { useState } from "react";
 function App() {
   const [accounts, setAccounts] = useState([{ name: "Google", code: "1" }]);
   const [creating, setCreating] = useState(false);
+  // 1. create a state named `name` and `code` to store the name and code with `''` as initial value.
   return (
     <div className="max-w-[400px] m-auto my-2">
       <div className="flex items-center">
@@ -19,6 +20,16 @@ function App() {
           </button>
         )}
       </div>
+      {/* 2. render a form with
+              - `name` input
+              - `code` input
+              - submit button
+
+            bind the `name` and `code` input to the state
+            and add `onSubmit` handler to add the new account to the `accounts` state (if the `name` is not provided, set it to `Unknown`)
+            and set `creating` state to `false`
+            and reset the `name` and `code` state to ""
+      */}
       <ul className="flex flex-col m-0 p-0 list-none">
         {accounts.map((item) => (
           <li key={item.code} className="border-b py-4">
